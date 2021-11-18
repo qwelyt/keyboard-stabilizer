@@ -1,10 +1,11 @@
 $fn=30;
+sep=3;
 
 module ooo(r=0.5){
   offset(r)offset(-r*2)offset(r)children();
 }
 
-module costar(){
+module kostar(){
   module capPart(){
     linear_extrude(3.8)difference(){
       ooo()union(){
@@ -38,10 +39,10 @@ module costar(){
   }
   
   capPart();
-  translate([0,-3,0])rotate([0,0,180])platePart();
+  translate([0,-sep,0])rotate([0,0,180])platePart();
 }
 
-module cherryPlateMount(){
+module sherryPlateMount(){
   module crossPart() {
 //    #translate([2,0,-0.35])cube([1,1,4.15]);
 //    #translate([-3,0,1.5])cube([1,1,2.3]);
@@ -69,26 +70,54 @@ module cherryPlateMount(){
         translate([0,0,-3.3])cube([5.5,2.2,0.01],center=true);
       }
     }
-    
-    
-    
   }
   
   module mountPart() {
     difference(){
-      cube([8.2,6.5,11],center=true);
+      union(){
+        cube([8.2,6.5,11],center=true);
+        translate([0,0,-0.1])cube([15.5,6.5,1.6],center=true);
+        translate([1,0,-(6.2/2.58)])cube([12.1,6.5,6.2],center=true);
+      }
       cube([6.2,4.5,12],center=true);
       translate([0,0,(11-3.7)/2])cube([4.2,7,3.71],center=true);
       translate([0,0,(11-3.7)/2])cube([9,2.5,3.71],center=true);
       
-      #cube([8.75,4.5,11/2],center=true);
+      translate([1,0,-3])cube([15,4.5,11/2],center=true);
+      translate([-11/2,0,0])cube([2.8,4.2,11],center=true);
+      translate([-8/2,0,0])cube([3,2.5,5],center=true);
+    
+        translate([15/2-1.7/2,0,-1.75])cube([1,7,1.7],center=true);
+      
+      translate([12.2/2,0,0])cube([4,3.4,1.7],center=true);
+    }
+    
+    translate([0,0,-11/2+1/2]){
+      translate([5.65,0,0])cube([2.8,6,1],center=true);
+      translate([7,0,0])cube([5.4,3.5,1],center=true);
+      translate([9,0,0.8])difference(){
+        cube([1.5,6.5,2.6],center=true);
+        translate([-1.7/2,0,0.5])rotate([90,0,0])cylinder(d=1.7,h=7,center=true);
+      }
+      
+      
+      
+      translate([-9.1/2,0,0]){
+        cube([1,6,1],center=true);
+        translate([0,0,7.2/2-1/2])cube([1,2,7.2],center=true);
+        
+        hull(){
+          translate([0,0,3/2])cube([1,2,4],center=true);
+          translate([-1,0,4.5/2])cube([1,2,0.1],center=true);
+        }
+      }
     }
     
   }
   
-  translate([0,0,-15])crossPart();
+  translate([0,sep,0])crossPart();
   mountPart();
 }
 
-//costar();
-cherryPlateMount();
+kostar();
+//sherryPlateMount();
