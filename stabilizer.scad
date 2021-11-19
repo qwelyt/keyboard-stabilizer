@@ -71,53 +71,115 @@ module sherryPlateMount(){
       }
     }
   }
+  w=6.6;
+  lt=8.2;
+  lb=12.3;
+  
+  sliderCutW=5;
+  sliderCutL=6.7;
+  
+  wireSize=1.6;
   
   module mountPart() {
+    module wireHolder(){
+      translate([(3.2-wireSize)/2,0,0])cube([2-wireSize,1,3],center=true);
+    }
     difference(){
       union(){
-        cube([8.2,6.5,11],center=true);
-        translate([0,0,-0.1])cube([15.5,6.5,1.6],center=true);
-        translate([1,0,-(6.2/2.58)])cube([12.1,6.5,6.2],center=true);
+        cube([lt,w,11],center=true);
+        cube([15.5,w,1.6],center=true);
+//        translate([1,0,-(6.2/2.58)])
+        translate([1,0,-11/4.59])
+          hull(){
+            translate([0,0,6.2/2])cube([lb,w,0.2],center=true);
+            translate([0.2,0,-6.2/2])cube([lb-0.4,w,0.01],center=true);
+          }
       }
-      cube([6.2,4.5,12],center=true);
-      translate([0,0,(11-3.7)/2])cube([4.2,7,3.71],center=true);
-      translate([0,0,(11-3.7)/2])cube([9,2.5,3.71],center=true);
       
-      translate([1,0,-3])cube([15,4.5,11/2],center=true);
-      translate([-11/2,0,0])cube([2.8,4.2,11],center=true);
-      translate([-8/2,0,0])cube([3,2.5,5],center=true);
+      
+      union(){// sliderhole
+        cube([sliderCutL,sliderCutW,12],center=true);
+        translate([0,0,(11-3.7)/2]){
+          cube([4.2,sliderCutL+1,3.71],center=true);
+          cube([sliderCutW+4,2.5,3.71],center=true);
+        }
+      }
+      
+      
+      // Bottom cut
+      translate([1,0,-3])
+        cube([15,4.5,11/2],center=true);
+      
+      // Backcut
+      translate([-11/2,0,0]){
+        cube([2.8,4.2,11],center=true);
+        translate([3/2,0,0])
+          cube([3,2.5,5],center=true);
+      }
+      
     
-        translate([15/2-1.7/2,0,-1.75])cube([1,7,1.7],center=true);
-      
-      translate([12.2/2,0,0])cube([4,3.4,1.7],center=true);
+      // Front hook cut
+      translate([15/2-1.7/2,0,-1.65])
+        cube([1,7,1.7],center=true);
+    
+      // Front top cut
+      translate([lb/2,0,0])
+        cube([3.9,3.4,1.7],center=true);
     }
     
+    
     translate([0,0,-11/2+1/2]){
-      translate([5.65,0,0])cube([2.8,6,1],center=true);
-      translate([7,0,0])cube([5.4,3.5,1],center=true);
-      translate([9,0,0.8])difference(){
-        cube([1.5,6.5,2.6],center=true);
-        translate([-1.7/2,0,0.5])rotate([90,0,0])cylinder(d=1.7,h=7,center=true);
+      
+      union(){// Front stab holder
+        translate([5.65,0,0])
+          cube([2.8,6,1],center=true);
+        
+        translate([7,0,0])
+          cube([5.4,3.5,1],center=true);
+        
+        translate([9,0,0.8])difference(){
+          cube([1.5,w,2.6],center=true);
+          translate([-1.7/2,0,0.5])
+            rotate([90,0,0])
+              cylinder(d=wireSize+0.1,h=7,center=true);
+        }
+        
+        // Extra wire holder
+        translate([lb/2,0,1]){
+          
+          translate([0,w/2-1/2,0])wireHolder();
+          translate([0,-w/2+1/2,0])wireHolder();
+        }
+        
+        
       }
+    
       
       
       
-      translate([-9.1/2,0,0]){
-        cube([1,6,1],center=true);
+      // Peg part
+      translate([-lb/2.89,0,0]){
+        cube([1,w,1],center=true);
         translate([0,0,7.2/2-1/2])cube([1,2,7.2],center=true);
         
+        peg=1.9;
         hull(){
           translate([0,0,3/2])cube([1,2,4],center=true);
-          translate([-1,0,4.5/2])cube([1,2,0.1],center=true);
+          translate([-peg/2,0,4.5/2])cube([peg,2,0.1],center=true);
         }
       }
     }
     
+//    translate([16/2,0,-3.5])
+//    rotate([90,0,0]){
+//      translate([0,0,w/2])cylinder(d=1.6,h=2,center=true);
+//      translate([0,0,-w/2])cylinder(d=1.1,h=2,center=true);
+//    }
   }
   
   translate([0,sep,0])crossPart();
   mountPart();
 }
 
-kostar();
-//sherryPlateMount();
+//kostar();
+sherryPlateMount();
