@@ -44,6 +44,7 @@ module kostar(){
 
 module sherryPlateMount(){
   module crossPart() {
+    w=4.1;
 //    #translate([2,0,-0.35])cube([1,1,4.15]);
 //    #translate([-3,0,1.5])cube([1,1,2.3]);
     difference(){
@@ -51,13 +52,15 @@ module sherryPlateMount(){
         translate([0,0,(11.1-3.6)/2])
         linear_extrude(3.6)
         union(){
-          square([1.1, 3.9],center=true);
-          square([3.9,1.2],center=true);
+          square([1, 3.7],center=true);
+          square([3.7,1],center=true);
         }
-        cube([5.5,4.25,7.6],center=true);
+        cube([5.45,w,7.6],center=true);
         
-        translate([0,4.25/2-1/2,-11.1/4-1/2])cube([8,1,1],center=true);
-        translate([0,-4.25/2+1/2,-11.1/4-1/2])cube([8,1,1],center=true);
+        translate([0,w/2-1/2,-11.1/4-1/2])
+          cube([7.5,1,1],center=true);
+        translate([0,-w/2+1/2,-11.1/4-1/2])
+          cube([7.5,1,1],center=true);
       }
       translate([2,0,-10/2+2.2])cube([4,2.2,5],center=true);
       translate([0,0,-10/2+3.2])cube([6,2.2,3],center=true);
@@ -73,12 +76,13 @@ module sherryPlateMount(){
   }
   w=6.6;
   lt=8.2;
-  lb=12.3;
+  lb=12.6;
   
   sliderCutW=5;
   sliderCutL=6.7;
   
-  wireSize=1.6;
+//  wireSize=1.6;
+  wireSize=1.1;
   
   module mountPart() {
     module wireHolder(){
@@ -119,8 +123,10 @@ module sherryPlateMount(){
       
     
       // Front hook cut
-      translate([15/2-1.7/2,0,-1.65])
-        cube([1,7,1.7],center=true);
+      translate([15/2-(3-2.5)/2,0,-1.65])
+        cube([3,7,1.7],center=true);
+//      #translate([15/2-1.7/2,0,-1.65])
+//        cube([1.7,7,1.7],center=true);
     
       // Front top cut
       translate([lb/2,0,0])
