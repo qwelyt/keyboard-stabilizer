@@ -83,11 +83,23 @@ module sherryPlateMount(){
   
 //  wireSize=1.6;
   wireSize=1.1;
-  
+      
+    
   module mountPart() {
+    #cube([14.05,1,1],center=true);
+
     module wireHolder(){
       translate([(3.2-wireSize)/2,0,0])cube([2-wireSize,1,3],center=true);
     }
+    module wing(){
+      hull(){
+        cube([2,0.55,0.1],center=true);
+        translate([0.49,0,-4.54])cube([1,0.55,0.1],center=true);
+      }
+    }
+    
+
+    
     difference(){
       union(){
         cube([lt,w,11],center=true);
@@ -176,6 +188,12 @@ module sherryPlateMount(){
       }
     }
     
+    #translate([-0.85,-3.57,-0.91])wing();
+    #translate([-0.85,3.57,-0.91])wing();
+    #translate([-3.5,-3,-0.91])cube([3.4,1,0.1],center=true);
+    #translate([-2.7,-3,-6])cube([3.75,1,1],center=true);
+    #translate([0.65,-3,-3.2])cube([1,1,4.65],center=true);
+    
 //    translate([16/2,0,-3.5])
 //    rotate([90,0,0]){
 //      translate([0,0,w/2])cylinder(d=1.6,h=2,center=true);
@@ -185,6 +203,7 @@ module sherryPlateMount(){
   
   translate([0,sep,0])crossPart();
   mountPart();
+
 }
 
 //kostar();
